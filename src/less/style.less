@@ -1,0 +1,202 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+img{
+  width: 100%;
+  height: 100%;
+}
+
+.black-overlay{
+  cursor: pointer;
+  display: none;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index:1001;
+  -moz-opacity: 0.7;
+  opacity:.70;
+  filter: alpha(opacity=70);
+}
+
+div.container {
+  position: fixed;
+  display: none;
+  background-color: #403c41;
+  width: 90%;
+  max-width: 1300px;
+  height: 90%;
+  max-height: 800px;
+  z-index:1002;
+  top: 1%;
+  left: 15%;
+  overflow: hidden;
+}
+
+.imgFull{
+  max-width: 100%;
+  height: 93%;
+  width: auto;
+}
+
+.change_menu{
+  height: 7%;
+  width: 100%;
+  background-color: #272428;
+  border: 1px solid #403c41;
+  position: absolute;
+  bottom: 0px;
+}
+
+#list > div{
+  cursor: pointer;
+  width: 200px;
+  height:100%;
+  float:left;
+  background:#f1f1f1;
+  margin:0 15px 15px 0;
+  text-align:center;
+  opacity:1;
+  display: table;
+}
+
+.imgC{
+  cursor: default;
+  width: 70%;
+  height:100%;
+  text-align:center;
+  float: left;
+  background-color: #272428;
+}
+
+.font{
+  text-align: center;
+  color: #f1f1f1;
+  font-size: 30px;
+  font-family: Georgia;
+}
+
+.author{
+  margin-bottom: 0px;
+  .font();
+}
+
+.name{
+  margin-top: 10px;
+  .font();
+}
+
+.cls_but{
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: auto;
+  opacity: 0.4;
+}
+
+.description{
+  background-color: #484449;
+  float: left;
+  overflow-y: auto;
+  width: 30%;
+  color: #f1f1f1;
+  font-size: 18px;
+  max-height: 30%;
+}
+
+.container p{
+  color: #f1f1f1;
+}
+
+div.checkbox_cont{
+  background-color: #484449;
+  float: left;
+  width: 30%;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  height: 15%;
+}
+
+div.price{
+  background-color: #2f2b30;
+  float: left;
+  width: 30%;
+  position: absolute;
+  bottom: 15%;
+  right: 0px;
+  height: 15%;
+}
+
+label.container{
+  color: #f1f1f1;
+  margin-top: 30px;
+  margin-left: 30px;
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  :hover input ~ .checkmark {
+    background-color: #5fe252;
+  }
+
+  input:checked ~ .checkmark {
+    background-color: #57c74a;
+    &:after {
+      display: block;
+    }
+  }
+  .checkmark {
+    margin-top: 11px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    background-color: #eee;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    &:after {
+      left: 9px;
+      top: 5px;
+      width: 20px;
+      height: 17px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+}
+
+div.menu *{
+  margin: 10px;
+  font-size: 30px;
+  font-family: Georgia;
+  display: inline-block;
+}

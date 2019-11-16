@@ -1,92 +1,126 @@
 var express = require('express');
 var router = express.Router();
 
-var books=require('../public/books');
+var pictures=require('../public/pictures');
+var users=require('../public/users');
+var settings=require('../public/settings');
 const fs=require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  return res.render('index', { books: books });
-  next();
+  return res.render('index', { pictures: pictures });
 });
 
-router.get('/books',(req,res,next)=>{
-  return res.end(JSON.stringify(books));
-  next();
+router.get('/pictures',(req,res,next)=>{
+  return res.end(JSON.stringify(pictures));
 });
 
-router.get('/books/:num',(req,res,next)=>{
+router.get('/pictures/:num',(req,res,next)=>{
   let number=req.params.num;
-  for(let value of books){
+  for(let value of pictures){
     if(value.id==number) {
-      return res.render('book',{book:value});
+      return res.send(value);
     }
   }
 });
 
-router.put('/books/:num',(req,res)=>{
-  for(key in books){
-    if(books[key].id==req.params.num){
+router.put('/pictures/:num-:type',(req,res)=>{
+  for(key in pictures){
+    if(pictures[key].id==req.params.num){
       let body=req.body;
-      if(body.book!=undefined){
-        books[key].book=body.book;
-        books[key].author=body.author;
-        books[key].publication=body.publication;
-      }
-      else {
-        books[key].count=!books[key].count;
-      }
+      pictures[key][req.params.type]=body.data;
       break;
     }
   }
-  fs.writeFile('books',JSON.stringify(books),(err)=>{
+  fs.writeFile('pictures',JSON.stringify(pictures),(err)=>{
     if(err) throw err;
   });
-
   res.end();
 });
 
-router.post('/books',(req,res)=>{
-  let body=req.body;
-  for(value of books){
-    if(value.book==body.book){
-      res.json({message: "Already count"});
-      return
-    }
-  }
-  var newId=books[books.length-1].id+1;
-  let date=new Date();
-  books.push({
-    id: newId,
-    book: body.book,
-    author: body.author,
-    publication: body.publication,
-    count: true,
-    back_date: `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`
-  });
-
-  fs.writeFile('books',JSON.stringify(books),(err)=>{
-    if(err) throw err;
-  });
-  res.send(JSON.stringify(books[books.length-1]));
+router.get('/pictures/*',(req,res)=>{
+  return res.end(JSON.stringify({error:'No such book'}));
 });
 
-router.delete('/books/:book',(req,res)=>{
-  let del_i=books.map((x)=>{return x.book}).indexOf(req.params.book);
+
+//----buyers---------
+
+router.get('/buyers',(req,res)=>{
+  return res.render('users',{users:users});
+});
+
+
+router.post('/buyers',(req,res)=>{
+  let body=req.body;
+
+  var newId=users[users.length-1].id+1;
+  users.push({
+    id: newId,
+    name: body.name,
+    surname: body.surname,
+    money: body.money
+  });
+
+  fs.writeFile('users',JSON.stringify(users),(err)=>{
+    if(err) throw err;
+  });
+
+  res.send(JSON.stringify(newId));
+});
+
+router.put('/buyers/:num-money',(req,res)=>{
+  for(key in users){
+    if(users[key].id==req.params.num){
+      let body=req.body;
+      users[key].money=body.data;
+      break;
+    }
+  }
+  fs.writeFile('users',JSON.stringify(users),(err)=>{
+    if(err) throw err;
+  });
+  res.end();
+});
+
+router.delete('/buyers/:id',(req,res)=>{
+  let del_i=users.map((x)=>{return x.id});
+  del_i=del_i.indexOf(Number.parseInt(req.params.id));
   if(del_i===-1){
     res.json({message: "Not found"});
-  }else{
-    let id=books[del_i].id;
-    books.splice(del_i,1);
-    fs.writeFile('books',JSON.stringify(books),(err)=>{
+  }
+  else{
+    let id=users[del_i].id;
+    users.splice(del_i,1);
+    fs.writeFile('users',JSON.stringify(users),(err)=>{
       if(err) throw err;
     });
     res.send(JSON.stringify({id: id}));
   }
 });
 
-router.get('/books/*',(req,res)=>{
-  return res.end(JSON.stringify({error:'No such book'}));
+//-------------auction---------------
+
+router.get('/auction',(req,res)=>{
+
+  return res.render('auction',{settings: settings, pictures:pictures.filter((x)=>{
+      return x.auction=='true';
+    })});
 });
+
+router.put('/auction',(req,res)=>{
+
+  let body=req.body;
+  settings.date=body.date;
+  settings.time=body.time;
+  settings.timeout=body.timeout;
+  settings.interval=body.interval;
+  settings.pause=body.pause;
+
+  fs.writeFile('settings',JSON.stringify(settings),(err)=>{
+    if(err) throw err;
+  });
+  res.end();
+});
+
 
 module.exports = router;

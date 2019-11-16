@@ -5,9 +5,13 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('library:server');
+var debug = require('debug')('auction:server');
+var fs=require('fs');
 var http = require('http');
-
+/*var ssl={
+  cert:fs.readFileSync('./keys/localhost.csr'),
+  key:fs.readFileSync('./keys/localhost.key')
+}*/
 /**
  * Get port from environment and store in Express.
  */

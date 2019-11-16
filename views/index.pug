@@ -3,48 +3,53 @@ html
   head
     meta(charset="utf-8")
     link(rel="stylesheet" href="/stylesheets/style.css")
-    title Библиотека
+    link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
+    title Картины
     body
-      label
-        | Дата возврата :
-        input(type="date" id="date" oninput="loadDate(this)")
-        input(type="checkbox" id="count" onclick="loadCount(this)")
-        | В наличии
-        |
-        button(onclick='loadBut(this)' ) Сброс фильтра
-      p
-
-
+      div(class="menu")
+        h1 Картины
+        a(href="/buyers") Участники
+        a(href="/auction") Аукцион
+      hr
+      hr
       div(id="list")
-        -for (let value of books)
+        -for (let value of pictures)
           div(id=value.id)
-            p= value.author
-            p= `"${value.book}"`
-            p= value.publication
-            a(href=`books/${value.id}`) карточка
+            p(data="author")= value.author
+            p(data="name")= `"${value.name}"`
+            img(src=value.url)
 
-      form(id="addBook" class="post1")
-        fieldset
-          legend Добавить книгу
-          label Название:
-            br
-            input(id="book" autocomplete="off")
-          br
-          label Автор:
-            br
-            input(id="author" autocomplete="off")
-          br
-          label Публикация:
-            br
-            input(id="publication" autocomplete="off")
-          input(type="submit" id="sub" disabled)
+      div(id="fade" class="black-overlay")
+        img(class="cls_but" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Media_Viewer_Icon_-_Close.svg/1024px-Media_Viewer_Icon_-_Close.svg.png")
+      div(class="container")
+        div(class="imgC")
+          img(class="imgFull")
+          div(class="change_menu")
+            p(style="float:left;margin-left:9px;") Изменить
+            select(id="selector" class="change" style="background:#272428; color:white;height:100%;float:left;margin-left:10px;padding-left:10px;")
+              option(value="name" selected="selected") Название
+              option(value="author") Писателя
+              option(value="start_price") Начальную цену
+              option(value="min_step") Минимальный шаг
+              option(value="max_step") Максимальный шаг
 
-    form(id="delBook" class="post2" )
-      fieldset
-        legend Удалить книгу
-        label Название:
-          br
-          input(id="del_book" autocomplete="off")
-        input(type="submit" id="del_sub" disabled)
+            input(id="input_change" class='w3-input' style="width: 30%;background: #272428;color: #f1f1f1;height:100%")
 
+
+        div(style="background-color: #484449;width: 30%;height: max-content; cursor: default;float:left;")
+          p(class="author")
+          p(class="name")
+        p(style="color: white;font-size: 20px; margin-bottom:5px;") &nbspОписание:
+        div(class="description")
+        div(class="price")
+            p(class="start_price")
+            p(class="min_step")
+            p(class="max_step")
+
+        div(class="checkbox_cont")
+          label(class="container") &nbsp&nbspДобавить картину к &nbsp&nbspаукциону?
+            input(type="checkbox")
+            span(class="checkmark")
+
+      script(src="https://code.jquery.com/jquery-3.4.1.min.js")
       script(src="/javascripts/ajax.js")

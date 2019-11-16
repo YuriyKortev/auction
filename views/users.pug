@@ -1,0 +1,65 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        link(rel="stylesheet" href="/stylesheets/users.css")
+        link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
+        title Участники
+    body
+        div(class="menu")
+            a(href="/") Картины
+            h1 Участники
+            a(href="/auction") Аукцион
+
+        hr
+        hr
+
+
+        div(id="list")
+            -for (let value of users)
+                div(id=value.id)
+                    img(src="https://www.bsau.ru/upload/iblock/180/профиль%20мужской2.jpg")
+                    p=value.name
+                    p=value.surname
+                    p(name="money")=value.money
+                    p(name="id")='#'+value.id
+
+        div(id="forms_container" style="clear:left;padding-top:20px;")
+            form(id="addUser" class="post")
+                fieldset
+                    legend Добавить участника
+                    label Имя:
+                        br
+                        input(name="name" autocomplete="off")
+                    br
+                    label Фамилия:
+                        br
+                        input(name="surname" autocomplete="off")
+                    br
+                    label Деньги:
+                        br
+                        input(name="money" autocomplete="off")
+                        br
+                    input(type="submit" name="sub" disabled)
+
+
+            form(id="changeMoney" class="put")
+                fieldset
+                    legend Изменить стредства
+                    label Задать средства:
+                        br
+                        input(id="change_money" name="money" autocomplete="off")
+                    br
+                    input(type="submit" id="sub" disabled)
+
+            form(id="delUser" class="delete" )
+                fieldset
+                    legend Удалить участника
+                    label #:
+                        br
+                        input(id="del_user" name="id" autocomplete="off")
+                        br
+                    input(type="submit" id="del_sub" disabled)
+
+        script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+        script(src="/javascripts/users.js")

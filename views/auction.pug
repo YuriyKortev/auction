@@ -1,0 +1,58 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        link(rel="stylesheet" href="/stylesheets/auction.css")
+        link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
+        title Аукцион
+    body
+        div(class="menu")
+            a(href="/") Картины
+            a(href="/buyers") Участники
+            h1 Аукцион
+
+        hr
+        hr
+
+        div(id="list")
+            -for (value of pictures)
+                div(id=value.id)
+                    p(data="author")= value.author
+                    p(data="name")= `"${value.name}"`
+                    img(src=value.url)
+
+        div(id="settings" style="clear:left;")
+            p(name="date")="Дата начала: "+settings.date
+            p(name="time")="Время: "+settings.time
+            p(name="timeout")="Таймаут: "+settings.timeout
+            p(name="interval")="Интервал: "+settings.interval
+            p(name="pause")="Пауза: "+settings.pause
+
+        form(id="changeSettings" class="put")
+            fieldset
+                legend Отредактировать книгу
+                label Дата:
+                    br
+                    input(name="date" type="date" autocomplete="off" value=settings.date)
+                br
+                label Время:
+                    br
+                    input(name="time" type="time" autocomplete="off" value=settings.time)
+                br
+                label Таймаут:
+                    br
+                    input(name="timeout" type="number" autocomplete="off" value=settings.timeout)
+                br
+                label Интервал:
+                    br
+                    input(name="interval" type="number" autocomplete="off" value=settings.interval)
+                br
+                label Пауза:
+                    br
+                    input(name="pause" type="number" autocomplete="off" value=settings.pause)
+                br
+                input(type="submit" id="sub")
+
+        br
+        script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+        script(src="/javascripts/auction.js")
