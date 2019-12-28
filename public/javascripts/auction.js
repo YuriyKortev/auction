@@ -1,1 +1,32 @@
-"use strict";setInterval(function(){var t=$("#changeSettings").find("input[name=date]").val(),n=$("#changeSettings").find("input[name=time]").val(),e=$("#changeSettings").find("input[name=timeout]").val(),i=$("#changeSettings").find("input[name=interval]").val(),a=$("#changeSettings").find("input[name=pause]").val(),u=$("#changeSettings").find("input[type=submit]");""===t||""===n||""===e||""===i||""===a?u.prop("disabled",!0):u.prop("disabled",!1)},500),$("#changeSettings").submit(function(){var s={},r=[["date","Дата начала: "],["time","Время: "],["timeout","Таймаут: "],["interval","Интервал: "],["pause","Пауза: "]];return $("#changeSettings").find("input").each(function(){"submit"!=this.type&&(s[this.name]=$(this).val())}),$.ajax({url:"/auction",type:"PUT",data:s,success:function(){var t=!0,n=!1,e=void 0;try{for(var i,a=r[Symbol.iterator]();!(t=(i=a.next()).done);t=!0){var u=i.value;$("#settings p[name=".concat(u[0],"]")).text(u[1]+s[u[0]])}}catch(t){n=!0,e=t}finally{try{t||null==a.return||a.return()}finally{if(n)throw e}}}}),!1});
+setInterval(()=>{
+    let date=$("#changeSettings").find('input[name=date]').val();
+    let time=$("#changeSettings").find('input[name=time]').val();
+    let timeout=$("#changeSettings").find('input[name=timeout]').val();
+    let interval=$("#changeSettings").find('input[name=interval]').val();
+    let pause=$("#changeSettings").find('input[name=pause]').val();
+    let sbm=$("#changeSettings").find('input[type=submit]');
+    (date==="" || time==="" || timeout==="" || interval==="" || pause==="")?(sbm.prop("disabled",true)):(sbm.prop("disabled",false));
+},500);
+
+$("#changeSettings").submit(function () {
+    let data = {};
+    let names = [["date", "Дата начала: "], ["time", "Время: "], ["timeout", "Таймаут: "], ["interval", "Интервал: "], ["pause", "Пауза: "]];
+    $("#changeSettings").find('input').each(function () {
+        if (this.type == "submit") return;
+        data[this.name] = $(this).val();
+        console.log($(this).val());
+    });
+
+    $.ajax({
+        url: '/auction',
+        type: 'PUT',
+        data: data,
+        success: () => {
+            for (let value of names) {
+                $(`#settings p[name=${value[0]}]`).text(value[1] + data[value[0]]);
+            }
+            $('#settings').css('display','block');
+        }
+    });
+    return false;
+});

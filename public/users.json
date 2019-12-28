@@ -3,24 +3,32 @@
     "id": 1,
     "name": "Юра",
     "surname": "Кортев",
-    "money": 100000
+    "money": 100000,
+    "logged": false,
+    "packet": []
   },
   {
     "id": 2,
     "name": "Григорий",
     "surname": "Цветков",
-    "money": 50000
+    "money": 50000,
+    "logged": false,
+    "packet": []
   },
   {
     "id": 3,
     "name": "Семён",
     "surname": "Мухин",
-    "money": 55000
+    "money": 55000,
+    "logged": false,
+    "packet": []
   },
   {
     "id": 4,
     "name": "Михаил",
     "surname": "Уваров",
-    "money": 80000
+    "money": 80000,
+    "logged": false,
+    "packet": []
   }
 ]

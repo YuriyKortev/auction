@@ -10,14 +10,14 @@ html
             a(href="/") Картины
             h1 Участники
             a(href="/auction") Аукцион
-
+            a(href='/login' style='position:absolute;right:100px;') Войти
         hr
         hr
 
 
         div(id="list")
             -for (let value of users)
-                div(id=value.id)
+                div(id=value.id class='logged')
                     img(src="https://www.bsau.ru/upload/iblock/180/профиль%20мужской2.jpg")
                     p=value.name
                     p=value.surname

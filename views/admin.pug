@@ -1,0 +1,50 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        link(rel="stylesheet" href="/stylesheets/users.css")
+        link(rel="stylesheet" href="/stylesheets/style.css")
+        link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
+        script(src='http://localhost:3030/socket.io/socket.io.js')
+        title Участники
+    body
+        div(class="menu")
+            h1 Администратор
+            a(href='/login' style='position:absolute;right:100px;') Назад
+        hr
+        hr
+
+
+
+        h2 Участники
+        div(id="list_u")
+            -for (let value of users)
+                div(id=value.id class='logged' style='cursor:default;')
+                    img(src="https://www.bsau.ru/upload/iblock/180/профиль%20мужской2.jpg")
+                    p=value.name
+                    p=value.surname
+                    p(name="money")=value.money
+                    p(name="id")='#' + value.id
+
+
+
+
+        h2(style='clear:left;') Картины
+        div(id="list" style='clear:left;')
+            -for (let value of pictures)
+                div(id='p' + value.id)
+                    p(data="author")= value.author
+                    p(data="name")= `"${value.name}"`
+                    img(src=value.url)
+
+
+        h2(style='clear:left;') Ход торгов
+            div(id='chat_cont')
+                ul(id='messages')
+
+            br
+
+
+
+        script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+        script(src="/javascripts/admin.js")

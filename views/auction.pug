@@ -10,7 +10,7 @@ html
             a(href="/") Картины
             a(href="/buyers") Участники
             h1 Аукцион
-
+            a(href='/login' style='position:absolute;right:100px;') Войти
         hr
         hr
 
@@ -21,37 +21,72 @@ html
                     p(data="name")= `"${value.name}"`
                     img(src=value.url)
 
-        div(id="settings" style="clear:left;")
-            p(name="date")="Дата начала: "+settings.date
-            p(name="time")="Время: "+settings.time
-            p(name="timeout")="Таймаут: "+settings.timeout
-            p(name="interval")="Интервал: "+settings.interval
-            p(name="pause")="Пауза: "+settings.pause
 
-        form(id="changeSettings" class="put")
-            fieldset
-                legend Отредактировать книгу
-                label Дата:
+        if(settings.ended)
+            div(id="settings" style="clear:left; display:none;")
+                p(name="date")="Дата начала: "
+                p(name="time")="Время: "
+                p(name="timeout")="Таймаут: "
+                p(name="interval")="Интервал: "
+                p(name="pause")="Пауза: "
+
+
+            form(id="changeSettings" class="put")
+                fieldset
+                    legend Отредактировать аукцион
+                    label Дата:
+                        br
+                        input(name="date" type="date" autocomplete="off" )
                     br
-                    input(name="date" type="date" autocomplete="off" value=settings.date)
-                br
-                label Время:
+                    label Время:
+                        br
+                        input(name="time" type="time" autocomplete="off" )
                     br
-                    input(name="time" type="time" autocomplete="off" value=settings.time)
-                br
-                label Таймаут:
+                    label Таймаут:
+                        br
+                        input(name="timeout" type="number" autocomplete="off" )
                     br
-                    input(name="timeout" type="number" autocomplete="off" value=settings.timeout)
-                br
-                label Интервал:
+                    label Интервал:
+                        br
+                        input(name="interval" type="number" autocomplete="off" )
                     br
-                    input(name="interval" type="number" autocomplete="off" value=settings.interval)
-                br
-                label Пауза:
+                    label Пауза:
+                        br
+                        input(name="pause" type="number" autocomplete="off" )
                     br
-                    input(name="pause" type="number" autocomplete="off" value=settings.pause)
-                br
-                input(type="submit" id="sub")
+                    input(type="submit" id="sub")
+        else
+            div(id="settings" style="clear:left;")
+                p(name="date")="Дата начала: " + settings.date
+                p(name="time")="Время: " + settings.time
+                p(name="timeout")="Таймаут: " + settings.timeout
+                p(name="interval")="Интервал: " + settings.interval
+                p(name="pause")="Пауза: " + settings.pause
+
+            form(id="changeSettings" class="put")
+                fieldset
+                    legend Отредактировать аукцион
+                    label Дата:
+                        br
+                        input(name="date" type="date" autocomplete="off" value=settings.date)
+                    br
+                    label Время:
+                        br
+                        input(name="time" type="time" autocomplete="off" value=settings.time)
+                    br
+                    label Таймаут:
+                        br
+                        input(name="timeout" type="number" autocomplete="off" value=settings.timeout)
+                    br
+                    label Интервал:
+                        br
+                        input(name="interval" type="number" autocomplete="off" value=settings.interval)
+                    br
+                    label Пауза:
+                        br
+                        input(name="pause" type="number" autocomplete="off" value=settings.pause)
+                    br
+                    input(type="submit" id="sub")
 
         br
         script(src="https://code.jquery.com/jquery-3.4.1.min.js")

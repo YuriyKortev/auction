@@ -1,0 +1,24 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        link(rel="stylesheet" href="/stylesheets/users.css")
+        link(rel="stylesheet" href="/stylesheets/style.css")
+        link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
+        link(href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css")
+        script(src="https://code.jquery.com/jquery-1.12.4.js")
+        title Участник
+    body
+        div(class="menu")
+            h1= `${user.name} ${user.surname} - Купленные картины`
+            a(href='/login' style='position:absolute;right:100px;') Назад
+
+        hr
+        hr
+
+        div(id="list")
+            -for (let value of user.packet)
+                div(id=value.id)
+                    p(data="author")= value.author
+                    p(data="name")= `"${value.name}"`
+                    img(src=value.url)
